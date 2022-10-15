@@ -78,6 +78,7 @@ kafka.topic.group-id=test
 ```
 ## Configurations
 - **_Kafka Producer Config_**
+  
   ```java
       @Configuration
       public class KafkaProducerConfig {
@@ -105,7 +106,8 @@ kafka.topic.group-id=test
         }
     }
     ```
-- **_Kafka Consumer Config_**
+- **_Kafka Consumer Config_**  
+
   ```java
     /**
     * setup these configruations in application.properties file
@@ -140,35 +142,35 @@ kafka.topic.group-id=test
   ```
 ## Creating a Kafka Producer to send messages
 
-```java 
-@Autowired
-private KafkaTemplate<String, String> template;
-
-/** 
- * This method will send message("Ashish Uniyal") 
- * to Kafka Topic - test
- */
-
-void sendMessageToKafkaProducer(){
-		template.send("test", "Ashish Uniyal");
-	}
-```
+  ```java 
+  @Autowired
+  private KafkaTemplate<String, String> template;
+  
+  /** 
+   * This method will send message("Ashish Uniyal") 
+   * to Kafka Topic - test
+   */
+  
+  void sendMessageToKafkaProducer(){
+          template.send("test", "Ashish Uniyal");
+      }
+  ```
 ## Creating a Kafka Consumer to receive messages
     
-```java 
-  /**
-  * This method will receive messages sent to topic test 
-  * and will print out those messages
-  */
-    @KafkaListener(
-          id="test",
-          topics="test",
-          containerFactory = "someRequestDataConcurrentKafkaListenerContainerFactory"
-	)
-	public void listener(String string){
-		System.out.println(string);
-	}
-```
+  ```java 
+    /**
+    * This method will receive messages sent to topic test 
+    * and will print out those messages
+    */
+      @KafkaListener(
+            id="test",
+            topics="test",
+            containerFactory = "someRequestDataConcurrentKafkaListenerContainerFactory"
+      )
+      public void listener(String string){
+          System.out.println(string);
+      }
+  ```
 ## Some useful Kafka commands for this
 | Use case                          | Kafka Command                                                                                                               |
 |-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
