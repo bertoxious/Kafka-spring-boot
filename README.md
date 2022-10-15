@@ -70,6 +70,12 @@ Download the Kafka binary from here
 </dependency>
 ```
 
+## Setting properties
+```properties
+spring.kafka.consumer.auto-offset-reset=earliest
+kafka.bootstrap-servers=localhost:9092
+kafka.topic.group-id=test
+```
 ## Configurations
 - **_Kafka Producer Config_**
   ```java
