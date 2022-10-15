@@ -106,38 +106,38 @@ kafka.topic.group-id=test
     }
     ```
 - **_Kafka Consumer Config_**
-```java
-  /**
-  * setup these configruations in application.properties file
-  */
-  @Configuration
-  public class KafkaConsumerConfig {
-  @Value(value = "${kafka.bootstrap-servers}")
-  private String bootstrapAddress;
-
-    @Value(value = "${kafka.topic.group-id}")
-    private String nameOfTopic;
-
-
-    public ConsumerFactory<String, String> someRequestConsumerFactory() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, nameOfTopic);
-        return new DefaultKafkaConsumerFactory<>(props,
-                new StringDeserializer(),
-                new StringDeserializer());
-
+  ```java
+    /**
+    * setup these configruations in application.properties file
+    */
+    @Configuration
+    public class KafkaConsumerConfig {
+    @Value(value = "${kafka.bootstrap-servers}")
+    private String bootstrapAddress;
+  
+      @Value(value = "${kafka.topic.group-id}")
+      private String nameOfTopic;
+  
+  
+      public ConsumerFactory<String, String> someRequestConsumerFactory() {
+          Map<String, Object> props = new HashMap<>();
+          props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
+          props.put(ConsumerConfig.GROUP_ID_CONFIG, nameOfTopic);
+          return new DefaultKafkaConsumerFactory<>(props,
+                  new StringDeserializer(),
+                  new StringDeserializer());
+  
+      }
+  
+      @Bean
+      public ConcurrentKafkaListenerContainerFactory<String, String> someRequestDataConcurrentKafkaListenerContainerFactory() {
+          ConcurrentKafkaListenerContainerFactory<String, String> factory =
+                  new ConcurrentKafkaListenerContainerFactory<>();
+          factory.setConsumerFactory(someRequestConsumerFactory());
+          return factory;
+      }
     }
-
-    @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> someRequestDataConcurrentKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, String> factory =
-                new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(someRequestConsumerFactory());
-        return factory;
-    }
-  }
-```
+  ```
 ## Creating a Kafka Producer to send messages
 
 ```java 
